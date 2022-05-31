@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 
 const userData = require('./usersData');
 
+var currentLoggedInUser = '';
+
 app.use(express.json());
 app.set('view engine', 'ejs');
 
@@ -27,6 +29,16 @@ app.get('/', (req, res) =>{
     res.render('pages/index')
 })
 
+app.get('/signup', (req, res) => {
+    res.render('pages/signup');
+})
+
+app.get('/login', (req, res) => {
+    res.render('pages/login');
+})
+
+
+// for all users
 app.get('/Users',
 	async(req, res) => {
 		try {
@@ -43,11 +55,35 @@ app.get('/Users',
 		}
 	});
 
+// For single user 
+app.get('/User/:username',
+	async(req, res) => {
+		try {
+			const resultData = await Users.find({ UserName: {$eq: req.params.username} });
+            if(resultData[0]){
+                res.json({
+                    success: true,
+                    data: resultData
+                });
+                currentLoggedInUser = resultData[0];
+            }else{
+                res.json({
+                    success: false
+                });
+
+            }
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
 
 app.post('/Users',
 	async(req, res) => {
 		const user = new Users({
-			DisplayName: req.body.DisplayName,
+            Email: req.body.Email,
+            Password: req.body.Password,
+            DisplayName: req.body.DisplayName,
 			UserName: req.body.UserName,
 			Bio: req.body.Bio
 		});
@@ -67,13 +103,14 @@ app.get('/Tweets',
 	async(req, res) => {
 
 		try {
-			const resultData = await Tweets.find();
-			// res.json({
-			// 	success: true,
-			// 	data: resultData
-			// });
+            const tweetsAndUserObj = {};
 
-            res.render('pages/tweets', {resultData});
+			const resultData = await Tweets.find();
+            
+            tweetsAndUserObj.resultData = resultData;
+            tweetsAndUserObj.UserName = "currentLoggedInUser";
+
+            res.render('pages/tweets', {tweetsAndUserObj});
 
 		} catch (error) {
 			console.log(error);
@@ -89,7 +126,7 @@ app.post('/Tweets',
         const currentAuthor = userData[Math.floor(Math.random()*userData.length)];
 
 		const tweet = new Tweets({
-			author: currentAuthor,
+			author: currentLoggedInUser,
 			textContent: req.body.textContent,
 			likes: 0
 		});

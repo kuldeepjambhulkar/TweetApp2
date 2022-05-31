@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+</head>
+<body>
+    <!-- User sign up -->
+    <div>
+        <h2>Login</h2>
+        <form id="loginUserForm" style="margin-bottom: 2rem;">
+
+            <label for="loginUsername">Username</label> <br>
+            <input type="text" name="" id="loginUsername"> <br> <br>
+
+            <label for="loginPassword">Passowrd</label> <br>
+            <input type="text" name="" id="loginPassword"> <br> <br>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <script>
+        const formElement = document.querySelector('#loginUserForm');
+        formElement.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            
+            const username = document.querySelector('#loginUsername').value;
+            const password = document.querySelector('#loginPassword').value;
+            
+            if(password && username){
+                const result =  await fetch('/User/'+username, {
+                    method: 'GET',
+                    headers:{
+                        "Content-Type": "application/json"
+                    }
+                }).then((res)=> {
+                    console.log(res);
+                    return res.redirect('/tweets');
+                })                
+                
+            }else{
+                console.log("Empty values");
+            }
+        })
+    </script>
+
+
+</body>
+</html>

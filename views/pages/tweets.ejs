@@ -17,17 +17,21 @@
         </form>
     </div>
 
-
+    <!-- display logged in user -->
+    <div>
+        <i>show current logged in user here</i>
+    </div>
     <!-- Display all tweerts -->
-    <% resultData.forEach(function(tweet) { %>
-        <li style="margin-bottom: 2rem;">
-          <strong><%= tweet.author.UserName %></strong> <br>
-          <%= tweet.textContent %>, <br>
-          Likes: <%= tweet.likes %> <br>
-          <button onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> >Like</button>
-        </li>
-      <% }); %>
-
+    <div>
+        <% tweetsAndUserObj.resultData.forEach(function(tweet) { %>
+            <li style="margin-bottom: 2rem;">
+                <strong><%= tweet.author.UserName %></strong> <br>
+                <%= tweet.textContent %> <br>
+                Likes: <%= tweet.likes %> <br>
+                <button onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> >Like</button>
+            </li>
+        <% }); %>
+    </div>
 
       <script>
 
@@ -36,7 +40,6 @@
         formElement.addEventListener('submit', async (e) => {
             e.preventDefault();
             const userEnteredTextContent = document.querySelector('#textContent').value;
-            console.log(userEnteredTextContent);
 
             const result =  await fetch('/Tweets', {
                 method: 'POST',
