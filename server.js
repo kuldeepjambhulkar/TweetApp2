@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-app.use(express.json());
+const userData = require('./usersData');
 
+app.use(express.json());
+app.set('view engine', 'ejs');
 
 mongoose.connect('mongodb://localhost/TweetDB', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', (error) => { console.error(error.message) });
-db.once('open', () => { console.log("Connected!") });
+db.once('open', () => { console.log("Connected!") }); 
 
 // Routers
 // const usersRouter = require('./routes/usersRoutes');
@@ -20,6 +22,9 @@ db.once('open', () => { console.log("Connected!") });
 
 const Users = require('./Models/Users');
 
+app.get('/', (req, res) =>{
+    res.render('pages/index')
+})
 
 app.get('/Users',
 	async(req, res) => {
@@ -56,16 +61,19 @@ app.post('/Users',
 
 
 const Tweets = require('./Models/Tweet');
-
+const req = require('express/lib/request');
 app.get('/Tweets',
 	async(req, res) => {
 
 		try {
 			const resultData = await Tweets.find();
-			res.json({
-				success: true,
-				data: resultData
-			});
+			// res.json({
+			// 	success: true,
+			// 	data: resultData
+			// });
+
+            res.render('pages/tweets', {resultData});
+
 		} catch (error) {
 			console.log(error);
 			res.json({
@@ -77,8 +85,10 @@ app.get('/Tweets',
 app.post('/Tweets',
 	async(req, res) => {
 
+        const currentAuthor = userData[Math.floor(Math.random()*userData.length)];
+
 		const tweet = new Tweets({
-			author: req.body.author,
+			author: currentAuthor,
 			textContent: req.body.textContent,
 			likes: req.body.likes
 		});
@@ -94,8 +104,7 @@ app.post('/Tweets',
 app.patch('/Tweets/liked',
 	async(req, res) => {
 		try {
-
-			const oneTweet = await Tweets.updateOne({ _id: req.body._id }, { $set: { likes: req.body.likes } });
+			const oneTweet = await Tweets.updateOne({ _id: req.body._id }, { $set: { likes:  14 } });
 			res.json(oneTweet);
 		} catch (error) {
 			console.log(error);
@@ -103,6 +112,8 @@ app.patch('/Tweets/liked',
 	});
 
 
+
 app.listen(3000, () =>
 	console.log('Server is running on port 3000!')
 )
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweets</title>
+</head>
+<body>
+    <h2>This is Tweets page</h2>
+
+    <% resultData.forEach(function(tweet) { %>
+        <li style="margin-bottom: 2rem;">
+          <strong><%= tweet.author.UserName %></strong> <br>
+          <%= tweet.textContent %>, <br>
+          Likes: <%= tweet.likes %> <br>
+          <button onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> >Like</button>
+        </li>
+      <% }); %>
+
+
+      <script>
+          const likeEvent = (event) => {
+            const result = fetch('/Tweets/liked', {
+                method: 'PATCH', 
+                body: JSON.stringify({
+                    "_id":event.target.value
+                })
+            }).then((res)=> res.json())
+
+          }
+      </script>
+</body>
+</html>

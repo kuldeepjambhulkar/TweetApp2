@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Tweets = new mongoose.Schema(
 	{
 		author: {
-			type: String,
+			type: Object,
 			required: true
 		},
 		textContent: {
