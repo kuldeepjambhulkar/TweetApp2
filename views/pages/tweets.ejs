@@ -9,6 +9,16 @@
 <body>
     <h2>This is Tweets page</h2>
 
+    <!-- Post new tweet -->
+    <div>
+        <form id="newTweet" style="margin-bottom: 2rem;">
+            <textarea type="textarea" rows="4"  id="textContent" placeholder="Type something..."></textarea> <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+    <!-- Display all tweerts -->
     <% resultData.forEach(function(tweet) { %>
         <li style="margin-bottom: 2rem;">
           <strong><%= tweet.author.UserName %></strong> <br>
@@ -20,14 +30,42 @@
 
 
       <script>
-          const likeEvent = (event) => {
-            const result = fetch('/Tweets/liked', {
-                method: 'PATCH', 
+
+        // Create tweet event
+        const formElement = document.querySelector('#newTweet');
+        formElement.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userEnteredTextContent = document.querySelector('#textContent').value;
+            console.log(userEnteredTextContent);
+
+            const result =  await fetch('/Tweets', {
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
-                    "_id":event.target.value
+                    textContent: userEnteredTextContent,
                 })
             }).then((res)=> res.json())
 
+
+        })
+
+
+
+
+
+
+          // Tweet like event
+          const likeEvent = async(event) => {
+            
+            const result = await fetch('/Tweets/liked/'+event.target.value, {
+                method: 'PATCH'
+                // body: JSON.stringify({
+                //     _id :event.target.value
+                // })
+            }).then((res)=> res.json())
+            window.location.reload();
           }
       </script>
 </body>

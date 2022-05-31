@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
+
 const userData = require('./usersData');
 
 app.use(express.json());
@@ -90,7 +91,7 @@ app.post('/Tweets',
 		const tweet = new Tweets({
 			author: currentAuthor,
 			textContent: req.body.textContent,
-			likes: req.body.likes
+			likes: 0
 		});
 
 		try {
@@ -101,11 +102,16 @@ app.post('/Tweets',
 		}
 	});
 
-app.patch('/Tweets/liked',
+app.patch('/Tweets/liked/:id',
 	async(req, res) => {
 		try {
-			const oneTweet = await Tweets.updateOne({ _id: req.body._id }, { $set: { likes:  14 } });
-			res.json(oneTweet);
+			
+             const targetTweet = await Tweets.findById(req.params.id);
+             targetTweet.likes = parseInt(targetTweet.likes) + 1;
+             const oneTweet = await targetTweet.save();
+
+            // const oneTweet = await Tweets.updateOne({ _id: req.params.id }, { $set: { likes:  Math.floor(Math.random()*9999) } });
+            res.json(oneTweet);
 		} catch (error) {
 			console.log(error);
 		}
