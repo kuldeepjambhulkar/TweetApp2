@@ -155,6 +155,24 @@ app.patch('/Tweets/liked/:id',
 	});
 
 
+app.delete('/Tweets/Delete/:id',
+	async (req, res) => {
+		try {
+
+			const targetTweet = await Tweets.findById(req.params.id);
+			//targetTweet.likes = parseInt(targetTweet.likes) + 1;
+			//const oneTweet = await targetTweet.save();
+
+			 await Tweets.deleteOne({ _id: req.params.id });
+
+
+			res.json(targetTweet);
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
+
 app.listen(3000,
 	() =>
 	console.log('Server is running on port 3000!')

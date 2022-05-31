@@ -29,6 +29,7 @@
                 <%= tweet.textContent %> <br>
                 Likes: <%= tweet.likes %> <br>
                 <button onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> >Like</button>
+                <button onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> >Delete</button>
             </li>
         <% }); %>
     </div>
@@ -54,11 +55,6 @@
 
         })
 
-
-
-
-
-
           // Tweet like event
           const likeEvent = async(event) => {
             
@@ -70,6 +66,19 @@
             }).then((res)=> res.json())
             window.location.reload();
           }
+
+        // Tweet like event
+          const deleteEvent = async(event) => {
+            
+            const result = await fetch('/Tweets/Delete/'+event.target.value, {
+                method: 'DELETE'
+                // body: JSON.stringify({
+                //     _id :event.target.value
+                // })
+            }).then((res)=> res.json())
+            window.location.reload();
+          }
+
       </script>
 </body>
 </html>
