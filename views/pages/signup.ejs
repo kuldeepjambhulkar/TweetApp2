@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+</head>
+<body>
+    <!-- User sign up -->
+    <div>
+        <h2>Signup</h2>
+        <form id="registerUserForm" style="margin-bottom: 2rem;">
+            <label for="registerEmail">Email</label> <br>
+            <input type="email" name="" id="registerEmail"> <br> <br>
+
+            <label for="registerPassword">Passowrd</label> <br>
+            <input type="text" name="" id="registerPassword"> <br> <br>
+
+            <label for="registerDisplayName">Display Name</label> <br>
+            <input type="text" name="" id="registerDisplayName"> <br> <br>
+
+            <label for="registerUsername">Username</label> <br>
+            <input type="text" name="" id="registerUsername"> <br> <br>
+
+            <label for="registerBio">Bio</label> <br>
+            <input type="text" name="" id="registerBio"> <br> <br>
+
+
+
+            <input type="submit" value="Signup">
+        </form>
+    </div>
+
+    <script>
+        const formElement = document.querySelector('#registerUserForm');
+        formElement.addEventListener('submit', async (e)=>{
+            e.preventDefault();
+            const email = document.querySelector('#registerEmail').value;
+            const password = document.querySelector('#registerPassword').value;
+            const displayName = document.querySelector('#registerDisplayName').value;
+            const username = document.querySelector('#registerUsername').value;
+            const bio = document.querySelector('#registerBio').value;
+            
+            if(email && password && displayName && username && bio){
+
+                const result =  await fetch('/Users', {
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Email: email,
+                    Password: password,
+                    DisplayName: displayName,
+                    UserName: username,
+                    Bio: bio
+                })
+            })
+            .then((res)=> res.josn())
+            .catch(error=>console.log(error))
+            }else{
+                console.log("Empty values");
+            }
+        })
+    </script>
+
+
+</body>
+</html>
