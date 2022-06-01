@@ -92,13 +92,14 @@ app.post('/Users',
 			const newUser = await user.save();
 			res.json(newUser);
 		} catch (error) {
-			console.log(error);
+			res.json({status: "error", error});
 		}
 	});
 
 
 const Tweets = require('./Models/Tweet');
 const req = require('express/lib/request');
+const { status } = require('express/lib/response');
 app.get('/Tweets',
 	async(req, res) => {
 
