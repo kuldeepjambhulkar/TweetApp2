@@ -57,7 +57,11 @@
                     Bio: bio
                 })
             })
-            .then((res)=> res.json())
+            .then((res)=> {
+                res.json();
+                window.location.href = '/login';
+
+            })
             .catch(error=>console.log(error))
             }else{
                 console.log("Empty values");

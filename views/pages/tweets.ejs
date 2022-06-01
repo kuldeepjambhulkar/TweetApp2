@@ -36,7 +36,6 @@
     </div>
 
       <script>
-
         // Create tweet event
         const formElement = document.querySelector('#newTweet');
         formElement.addEventListener('submit', async (e) => {
@@ -53,69 +52,51 @@
                 })
             }).then((res)=> res.json())
             window.location.reload();
-
         })
 
-          // Tweet like event
-          const likeEvent = async(event) => {
-        
+        // Tweet like event
+        const likeEvent = async(event) => {
             const result = await fetch('/Tweets/liked/'+event.target.value, {
                 method: 'PATCH'
-                // body: JSON.stringify({
-                //     _id :event.target.value
-                // })
             }).then((res)=> res.json())
             window.location.reload();
-          }
+        }
 
-          // Tweet edit event
-          const editEvent = async(event) => {
+        // Tweet edit event
+        const editEvent = async(event) => {
             const tweetTextContent = document.querySelector('#content'+event.target.value);
             tweetTextContent.contentEditable = true;
             tweetTextContent.focus();
-
-
             const editBtn = document.querySelector('#saveBtn'+event.target.value);
             editBtn.style.display = "inline-block";
+        }
 
-          }
-
-            // Save edited tweet
-            const saveEvent = async (event) => {
-                const tweetTextContent = document.querySelector('#content'+event.target.value);
-                tweetTextContent.contentEditable = false;
-
-                const editedTweet = tweetTextContent.textContent;
-
-                const editBtn = document.querySelector('#saveBtn'+event.target.value);
-                editBtn.style.display = "none";
- 
-                const result = await fetch('/Tweets/edit/'+event.target.value, {
-                    method: 'PUT',
-                    headers:{
-                        "Content-Type": "application/json" 
-                    },
-                    body: JSON.stringify({
-                        textContent : editedTweet
-                    })
-                }).then((res)=> res.json())
-                window.location.reload();
-
-            }
-
-
-        // Tweet delete event
-          const deleteEvent = async(event) => {
-            
-            const result = await fetch('/Tweets/Delete/'+event.target.value, {
-                method: 'DELETE'
-                // body: JSON.stringify({
-                //     _id :event.target.value
-                // })
+        // Save edited tweet
+        const saveEvent = async (event) => {
+            const tweetTextContent = document.querySelector('#content'+event.target.value);
+            tweetTextContent.contentEditable = false;
+            const editedTweet = tweetTextContent.textContent;
+            const editBtn = document.querySelector('#saveBtn'+event.target.value);
+            editBtn.style.display = "none";
+            const result = await fetch('/Tweets/edit/'+event.target.value, {
+                method: 'PUT',
+                headers:{
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify({
+                    textContent : editedTweet
+                })
             }).then((res)=> res.json())
             window.location.reload();
-          }
+        }
 
+        // Tweet delete event
+        const deleteEvent = async(event) => {
+            const result = await fetch('/Tweets/Delete/'+event.target.value, {
+                method: 'DELETE'
+            }).then((res)=> res.json())
+            window.location.reload();
+        }
       </script>
 </body>
 </html>
