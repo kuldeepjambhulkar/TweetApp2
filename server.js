@@ -44,14 +44,12 @@ app.get('/Users',
 		try {
 			const resultData = await Users.find();
 			res.json({
-				success: true,
+				status: 'ok',
 				data: resultData
 			});
 		} catch (error) {
-			console.log(error);
-			res.json({
-				success: false
-			});
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -62,18 +60,19 @@ app.get('/User/:username',
 			const resultData = await Users.find({ UserName: {$eq: req.params.username} });
             if(resultData[0]){
                 res.json({
-                    success: true,
+                    status: 'ok',
                     data: resultData
                 });
                 currentLoggedInUser = resultData[0];
             }else{
                 res.json({
-                    success: false
+                    status: 'error'
                 });
 
             }
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -92,6 +91,7 @@ app.post('/Users',
 			const newUser = await user.save();
 			res.json(newUser);
 		} catch (error) {
+            console.log(error.message);
 			res.json({status: "error", error});
 		}
 	});
@@ -114,10 +114,8 @@ app.get('/Tweets',
             res.render('pages/tweets', {tweetsAndUserObj});
 
 		} catch (error) {
-			console.log(error);
-			res.json({
-				success: false
-			});
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -136,7 +134,8 @@ app.post('/Tweets',
 			const newTweet = await tweet.save();
 			res.json(newTweet);
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -151,7 +150,8 @@ app.patch('/Tweets/liked/:id',
             // const oneTweet = await Tweets.updateOne({ _id: req.params.id }, { $set: { likes:  Math.floor(Math.random()*9999) } });
             res.json(oneTweet);
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -166,7 +166,8 @@ app.patch('/Tweets/liked/:id',
             // const oneTweet = await Tweets.updateOne({ _id: req.params.id }, { $set: { likes:  Math.floor(Math.random()*9999) } });
             res.json(oneTweet);
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
 	});
 
@@ -184,7 +185,8 @@ app.delete('/Tweets/Delete/:id',
 
 			res.json(targetTweet);
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
+			res.json({status: "error", error});
 		}
     });
 
