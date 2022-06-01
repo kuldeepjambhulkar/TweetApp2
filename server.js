@@ -154,6 +154,21 @@ app.patch('/Tweets/liked/:id',
 		}
 	});
 
+    app.put('/Tweets/edit/:id',
+	async(req, res) => {
+		try {
+			
+             const targetTweet = await Tweets.findById(req.params.id);
+             targetTweet.textContent = req.body.textContent;
+             const oneTweet = await targetTweet.save();
+
+            // const oneTweet = await Tweets.updateOne({ _id: req.params.id }, { $set: { likes:  Math.floor(Math.random()*9999) } });
+            res.json(oneTweet);
+		} catch (error) {
+			console.log(error);
+		}
+	});
+
 
 app.delete('/Tweets/Delete/:id',
 	async (req, res) => {
@@ -170,7 +185,8 @@ app.delete('/Tweets/Delete/:id',
 		} catch (error) {
 			console.log(error);
 		}
-	});
+    });
+
 
 
 app.listen(3000,
