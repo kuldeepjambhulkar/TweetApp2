@@ -7,20 +7,18 @@
     <title>Tweets</title>
 </head>
 <body>
-    <h2>This is Tweets page</h2>
+    <div style="margin-bottom: .5rem; padding-top: 1rem;">
+        Hello, <% (tweetsAndUserObj.UserName)  %>
+    </div>
 
     <!-- Post new tweet -->
     <div>
         <form id="newTweet" style="margin-bottom: 2rem;">
-            <textarea type="textarea" rows="4"  id="textContent" placeholder="Type something..."></textarea> <br>
+            <textarea type="textarea" rows="6" cols="50"  id="textContent" placeholder="Type something..."></textarea> <br>
             <input type="submit" value="Submit">
         </form>
     </div>
 
-    <!-- display logged in user -->
-    <div>
-        <i>show current logged in user here</i>
-    </div>
     <!-- Display all tweerts -->
     <div>
         <% tweetsAndUserObj.resultData.forEach(function(tweet) { %>
@@ -33,6 +31,7 @@
                 <button onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> >Delete</button>
                 <button onclick="saveEvent(event)" style="display: none;"  id = <%= "saveBtn" + tweet._id %> value = <%= tweet._id %> >Save</button>
             </div>
+            <hr>
         <% }); %>
     </div>
 
@@ -53,17 +52,13 @@
                     textContent: userEnteredTextContent,
                 })
             }).then((res)=> res.json())
-
+            window.location.reload();
 
         })
 
           // Tweet like event
           const likeEvent = async(event) => {
-            
-
-
-
-
+        
             const result = await fetch('/Tweets/liked/'+event.target.value, {
                 method: 'PATCH'
                 // body: JSON.stringify({
@@ -94,11 +89,11 @@
 
                 const editBtn = document.querySelector('#saveBtn'+event.target.value);
                 editBtn.style.display = "none";
-
+ 
                 const result = await fetch('/Tweets/edit/'+event.target.value, {
                     method: 'PUT',
                     headers:{
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json" 
                     },
                     body: JSON.stringify({
                         textContent : editedTweet
