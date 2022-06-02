@@ -26,11 +26,10 @@
             <label for="registerBio">Bio</label> <br>
             <input type="text" name="" id="registerBio"> <br> <br>
 
-
-
             <input type="submit" value="Signup">
             <button id="loginBtn" title="Already have account? Login here!">Login</button>
 
+            <p id="errorMsg" style="display: none;">Please fill all required feild</p>
         </form>
     </div>
 
@@ -66,7 +65,10 @@
             })
             .catch(error=>console.log(error))
             }else{
-                console.log("Empty values");
+                document.querySelector('#errorMsg').style.display = 'block';
+                setTimeout(function(){
+                    document.querySelector('#errorMsg').style.display = 'none';
+                }, 3000);
             }
         })
         const loginBtn = document.querySelector('#loginBtn');

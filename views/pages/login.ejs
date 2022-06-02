@@ -20,6 +20,8 @@
 
             <input type="submit" value="Login">
             <button id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
+            <p id="errorMsg" style="display: none;">Please fill all required feild</p>
+
         </form>
 
     </div>
@@ -42,7 +44,10 @@
                 window.location.href='/Tweets';
                 })                
             }else{
-                console.log("Empty values");
+                document.querySelector('#errorMsg').style.display = 'block';
+                setTimeout(function(){
+                    document.querySelector('#errorMsg').style.display = 'none';
+                }, 3000);
             }
         })
 
