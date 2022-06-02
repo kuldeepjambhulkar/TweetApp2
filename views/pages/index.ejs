@@ -8,5 +8,14 @@
 </head>
 <body>
     <h2>This Is HomePage</h2>
+    <button id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
+    <button id="loginBtn" title="Already have account? Login here!">Login</button>
+    <script>
+        const signupBtn = document.querySelector('#signupBtn');
+        signupBtn.addEventListener('click', () => { window.location.href = '/signup' })
+
+        const loginBtn = document.querySelector('#loginBtn');
+        loginBtn.addEventListener('click', () => { window.location.href = '/login' })
+    </script>
 </body>
 </html>
