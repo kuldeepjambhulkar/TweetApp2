@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
+    <title>Login</title>
 </head>
 <body>
     <!-- User sign up -->
@@ -19,7 +19,9 @@
             <input type="text" name="" id="loginPassword"> <br> <br>
 
             <input type="submit" value="Login">
+            <button id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
         </form>
+
     </div>
 
     <script>
@@ -43,6 +45,10 @@
                 console.log("Empty values");
             }
         })
+
+        const signupBtn = document.querySelector('#signupBtn');
+        signupBtn.addEventListener('click', () => { window.location.href = '/signup' })
+
     </script>
 </body>
 </html>

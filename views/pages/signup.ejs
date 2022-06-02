@@ -29,6 +29,8 @@
 
 
             <input type="submit" value="Signup">
+            <button id="loginBtn" title="Already have account? Login here!">Login</button>
+
         </form>
     </div>
 
@@ -67,8 +69,8 @@
                 console.log("Empty values");
             }
         })
+        const loginBtn = document.querySelector('#loginBtn');
+        loginBtn.addEventListener('click', () => { window.location.href = '/login' })
     </script>
-
-
 </body>
 </html>
