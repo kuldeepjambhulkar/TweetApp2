@@ -8,7 +8,8 @@
 </head>
 <body>
     <div style="margin-bottom: .5rem; padding-top: 1rem;">
-        Hello, <% (tweetsAndUserObj.UserName)  %>
+        <p id="header_greetings"> Hello, <%= (tweetsAndUserObj.UserName) %> </p>
+        <button id="logout">Logout</button>
     </div>
 
     <!-- Post new tweet -->
@@ -36,6 +37,11 @@
     </div>
 
       <script>
+          if(localStorage.getItem('currentUsername')){
+              document.querySelector('#header_greetings').textContent = 'Hello, '+ localStorage.getItem('currentUsername');
+          }else{
+              window.location.href = '/login';
+          }
         // Create tweet event
         const formElement = document.querySelector('#newTweet');
         formElement.addEventListener('submit', async (e) => {
@@ -97,6 +103,13 @@
             }).then((res)=> res.json())
             window.location.reload();
         }
+        
+        // Logout event
+        const logoutBtn = document.querySelector('#logout');
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('currentUsername');
+            window.location.href = '/login';
+        })
       </script>
 </body>
 </html>

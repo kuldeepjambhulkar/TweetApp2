@@ -41,7 +41,14 @@
                         "Content-Type": "application/json"
                     }
                 }).then((res)=> {
-                window.location.href='/Tweets';
+
+                    if(res.status != 404){
+                        localStorage.setItem('currentUsername', username);
+                        window.location.href='/Tweets';
+                    }else{
+                        document.querySelector('#errorMsg').style.display = 'block';
+                        document.querySelector('#errorMsg').textContent = 'Enter valid credentials';
+                    }
                 })                
             }else{
                 document.querySelector('#errorMsg').style.display = 'block';

@@ -52,7 +52,7 @@ app.get('/Users',
                     });
                     currentLoggedInUser = resultData[0];
                 }else{
-                    res.json({status: 'error'});
+                    res.status(404).json({status: 'error'});
                 }
             } catch (error) {
                 console.log(error.message);
