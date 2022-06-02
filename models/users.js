@@ -28,6 +28,16 @@ const Users = new mongoose.Schema(
 			type: Date,
 			required: true,
 			default: Date.now()
+		},
+		LogoUri:
+		{
+			type: String,
+			required: true
+		},
+		Base64:
+		{
+			type: String,
+			required: true
 		}
 	}
 );
