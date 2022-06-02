@@ -9,7 +9,9 @@
 <body>
     <div style="margin-bottom: .5rem; padding-top: 1rem;">
         <p id="header_greetings"></p>
+       <div id ="imglogo"></div>
         <button id="logout">Logout</button>
+        
     </div>
 
     <!-- Post new tweet -->
@@ -41,6 +43,12 @@
           }else{
               window.location.href = '/login';
           }
+          var logoUri = localStorage.getItem('LogoUri');
+          var base64 = localStorage.getItem('Base64');
+          var image = new Image();
+            image.src = 'data:image/png;base64,'+base64;
+           document.querySelector('#imglogo').append(image);
+
         // Create tweet event
         const formElement = document.querySelector('#newTweet');
         formElement.addEventListener('submit', async (e) => {
