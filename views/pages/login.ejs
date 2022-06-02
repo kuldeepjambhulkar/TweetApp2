@@ -44,7 +44,7 @@
 
                     if(res.status != 404){
                         localStorage.setItem('currentUsername', username);
-                        window.location.href='/Tweets';
+                        window.location.href='/Tweets/'+username;
                     }else{
                         document.querySelector('#errorMsg').style.display = 'block';
                         document.querySelector('#errorMsg').textContent = 'Enter valid credentials';

@@ -87,13 +87,17 @@ app.get('/Users',
     });
 
     // Get all tweets (useed in /tweets page)
-    app.get('/Tweets',
+    app.get('/Tweets/:username',
         async(req, res) => {
             try {
                 const tweetsAndUserObj = {};
                 const resultData = await Tweets.find();
+                
+                const currentLoggedInUser = await Users.find({ UserName: {$eq: req.params.username} });
+                
                 tweetsAndUserObj.resultData = resultData;
-                tweetsAndUserObj.UserName = "currentLoggedInUser";
+
+                tweetsAndUserObj.currentLoggedInUser = currentLoggedInUser;
                 res.render('pages/tweets', {tweetsAndUserObj});
             } catch (error) {
                 console.log(error.message);
