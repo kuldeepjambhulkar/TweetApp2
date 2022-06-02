@@ -26,6 +26,9 @@
             <label for="registerBio">Bio</label> <br>
             <input type="text" name="" id="registerBio"> <br> <br>
 
+            <label for="registerLogo">Upload Logo</label> <br>
+            <input type="file" name="logo" id="registerLogo"> <br> <br>
+
             <input type="submit" value="Signup">
             <button id="loginBtn" title="Already have account? Login here!">Login</button>
 
@@ -42,6 +45,8 @@
             const displayName = document.querySelector('#registerDisplayName').value;
             const username = document.querySelector('#registerUsername').value;
             const bio = document.querySelector('#registerBio').value;
+            const logoName = uploadLogoFileName;
+            const logoBased64 = logoFileBased64String;
             
             if(email && password && displayName && username && bio){
 
@@ -55,7 +60,9 @@
                     Password: password,
                     DisplayName: displayName,
                     UserName: username,
-                    Bio: bio
+                    Bio: bio,
+                    LogoUri: logoName,
+                    Base64: logoBased64
                 })
             })
             .then((res)=> {
@@ -71,8 +78,32 @@
                 }, 3000);
             }
         })
+
+        //==========================================================================
+        const registerLogoElement = document.querySelector('#registerLogo');
+        var logoFileBased64String = '';
+        var uploadLogoFileName = '';
+
+        registerLogoElement.addEventListener('change', async (e)=>{
+
+            const uploadLogoFile = e.target.files[0];
+            uploadLogoFileName = e.target.files[0].name;
+
+            const imageToBase64 = function (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = function () {
+                        var binaryString = reader.result;
+                        logoFileBased64String = binaryString.match(/,(.*)/)[1];
+                    };
+                    reader.readAsDataURL(file);
+                };
+             imageToBase64(e.target.files[0]);
+        })
+
+        console.log(logoFileBased64String);
         const loginBtn = document.querySelector('#loginBtn');
         loginBtn.addEventListener('click', () => { window.location.href = '/login' })
+
     </script>
 </body>
 </html>

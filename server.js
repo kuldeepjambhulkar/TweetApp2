@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Users = require('./Models/Users');
 const Tweets = require('./Models/Tweet');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 var currentLoggedInUser = '';
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -68,7 +72,9 @@ app.get('/Users',
                 Password: req.body.Password,
                 DisplayName: req.body.DisplayName,
                 UserName: req.body.UserName,
-                Bio: req.body.Bio
+                Bio: req.body.Bio,
+                LogoUri: req.body.LogoUri,
+                Base64: req.body.Base64
             });
 
             try {

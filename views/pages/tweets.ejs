@@ -19,7 +19,6 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-
     <!-- Display all tweerts -->
     <div>
         <% tweetsAndUserObj.resultData.forEach(function(tweet) { %>
@@ -35,7 +34,7 @@
             <hr>
         <% }); %>
     </div>
-
+     
       <script>
           if(localStorage.getItem('currentUsername')){
               document.querySelector('#header_greetings').innerHTML = '<b>Hello, '+ localStorage.getItem('currentUsername')+'</b>';
