@@ -55,13 +55,9 @@
                             <p class="mb-0">@<%= tweet.author.UserName %></p> <br>
                             <h5 id = <%= "content" + tweet._id %> value= <%= tweet._id %>  > <%= tweet.textContent %> <br></h5>
                             <button class="btn btn-success" onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> ><i class="bi bi-hand-thumbs-up"></i> &nbsp;<%= tweet.likes %></button>
-                            
-                            <% if( (tweet.author['_id']+'') === ( tweetsAndUserObj.currentLoggedInUser[0]['_id']+'' )){ %>
-                                <button class="btn btn-warning" onclick="editEvent(event)"  id="editBtn" value = <%= tweet._id %> ><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-danger"  onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> ><i class="bi bi-trash"></i></button>
-                                <button class="btn btn-primary" onclick="saveEvent(event)" style="display: none;"  id = <%= "saveBtn" + tweet._id %> value = <%= tweet._id %> >Save</button>
-                              <% } %>  
-                            
+                            <button class="btn btn-warning" onclick="editEvent(event)"  id="editBtn" value = <%= tweet._id %> ><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-danger"  onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> ><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-primary" onclick="saveEvent(event)" style="display: none;"  id = <%= "saveBtn" + tweet._id %> value = <%= tweet._id %> >Save</button>
                         </div>
                         <hr>
                     <% }); %>
