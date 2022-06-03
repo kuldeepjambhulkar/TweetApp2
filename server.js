@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Users = require('./Models/Users');
 const Tweets = require('./Models/Tweet');
+const port = process.env.PORT || 3000; 
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -12,7 +14,7 @@ var currentLoggedInUser = '';
 app.use(express.json());
 app.set('view engine', 'ejs');
 
-mongoose.connect('mongodb+srv://PandurangShinde:Twenty20@cluster0.zzmyy.mongodb.net/TweetDB?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', (error) => { console.error(error.message) });
 db.once('open', () => { console.log("Connected!") }); 
