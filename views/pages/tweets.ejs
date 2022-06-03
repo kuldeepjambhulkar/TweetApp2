@@ -1,48 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <%- include('../partials/head') %>
     <title>Tweets</title>
+    <style>
+    hr {
+    color: #000000;
+}
+</style>
 </head>
 <body>
-    <div style="margin-bottom: .5rem; padding-top: 1rem;">
-        <p id="header_greetings">Hello, <%=  tweetsAndUserObj.currentLoggedInUser[0].DisplayName %></p>
-       <div id ="imglogo">
-           <img src=<%= 'data:image/png;base64,' + tweetsAndUserObj.currentLoggedInUser[0].Base64  %> alt="">
-       </div>
-        <button id="logout">Logout</button>
-        
-    </div>
-    
-    <!-- Post new tweet -->
-    <div>
-        <form id="newTweet" style="margin-bottom: 2rem;">
-            <textarea type="textarea" rows="6" cols="50"  id="textContent" placeholder="Type something..."></textarea> <br>
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-    <!-- Display all tweerts -->
-    <div>
-        <% tweetsAndUserObj.resultData.forEach(function(tweet) { %>
-            <div style="margin-bottom: 2rem;">
-                <strong><%= tweet.author.UserName %></strong> <br>
-                <p id = <%= "content" + tweet._id %> value= <%= tweet._id %>  > <%= tweet.textContent %> <br></p>
-                Likes: <%= tweet.likes %> <br>
-                <button onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> >Like</button>
-                <button onclick="editEvent(event)"  id="editBtn" value = <%= tweet._id %> >Edit</button>
-                <button onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> >Delete</button>
-                <button onclick="saveEvent(event)" style="display: none;"  id = <%= "saveBtn" + tweet._id %> value = <%= tweet._id %> >Save</button>
+    <div class="container"  style="max-width: 600px;">
+        <div class="row mt-5">
+            <div class="col">
+                <!-- User greeting -->
+                <div class="row pb-5 pt-5 d-flex sticky-top bg-white">
+                    <div class="col">
+                        <h4 id="header_greetings">Hello, <%=  tweetsAndUserObj.currentLoggedInUser[0].DisplayName %></h4>
+                        <p id="header_greetings_time"></p>
+                    </div>
+                    <div class="col d-flex flex-column justify-content-center align-items-end">
+                        <div id ="imglogo" class="me-1">
+                            <img class="img-fluid rounded-circle img-thumbnail" style="width: 4rem;" src=<%= 'data:image/png;base64,' + tweetsAndUserObj.currentLoggedInUser[0].Base64  %> alt="">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger"  id="logout">Logout</button>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Post new tweet -->
+                <div class="row mb-5">
+                    <div class="col">
+                        <form id="newTweet" class="mb-2 mt-1">
+                            <textarea class="form-control" type="textarea" rows="4" cols="50"  id="textContent" placeholder="Say something..."></textarea> 
+                            <input class="btn btn-primary mt-1" type="submit" value="Tweet">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Display all tweerts -->
+                <div>
+                    <% tweetsAndUserObj.resultData.forEach(function(tweet) { %>
+                        <div style="margin-bottom: 2rem;">
+                            <img class="img-fluid rounded-circle img-thumbnail" style="
+                            width: 4rem;
+                            object-fit: cover;
+                            width: 70px;
+                            height: 70px;" src=<%= 'data:image/png;base64,' + tweet.author.Base64  %> alt="">
+
+                            <strong><%= tweet.author.DisplayName %></strong>
+                            <p class="mb-0">@<%= tweet.author.UserName %></p> <br>
+                            <h5 id = <%= "content" + tweet._id %> value= <%= tweet._id %>  > <%= tweet.textContent %> <br></h5>
+                            <button class="btn btn-success" onclick="likeEvent(event)"  id="likeBtn" value = <%= tweet._id %> ><i class="bi bi-hand-thumbs-up"></i> &nbsp;<%= tweet.likes %></button>
+                            <button class="btn btn-warning" onclick="editEvent(event)"  id="editBtn" value = <%= tweet._id %> ><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-danger"  onclick="deleteEvent(event)"  id="deleteBtn" value = <%= tweet._id %> ><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-primary" onclick="saveEvent(event)" style="display: none;"  id = <%= "saveBtn" + tweet._id %> value = <%= tweet._id %> >Save</button>
+                        </div>
+                        <hr>
+                    <% }); %>
+                </div>
             </div>
-            <hr>
-        <% }); %>
+        </div>
     </div>
+
+    
      
       <script>
-          if(!localStorage.getItem('currentUsername')){
-              window.location.href = '/login';
-          }
+        if(!localStorage.getItem('currentUsername')){
+            window.location.href = '/login';
+        }
+
+        // greeting user according to time
+        const greeting = document.querySelector('#header_greetings_time');
+        const hour = new Date().getHours();
+        const welcomeTypes = ['Good morning', 'Good afternoon', 'Good evening'];
+        let welcomeText = '';
+        if (hour < 12) welcomeText = welcomeTypes[0];
+        else if (hour < 18) welcomeText = welcomeTypes[1];
+        else welcomeText = welcomeTypes[2];
+        greeting.innerHTML = welcomeText;
 
         // Create tweet event
         const formElement = document.querySelector('#newTweet');

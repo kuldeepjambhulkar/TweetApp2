@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
     <title>Login</title>
 </head>
 <body>
     <!-- User sign up -->
-    <div>
-        <h2>Login</h2>
-        <form id="loginUserForm" style="margin-bottom: 2rem;">
+    <div class="container" style="max-width: 600px;background: #ff9f00;border-radius: 25px;">
+        <div class="row mt-5">
+            <div class="col">
+                <h2 class="mb-5 text-center">Login</h2>
+                <form id="loginUserForm" style="margin-bottom: 2rem;">
+        
 
-            <label for="loginUsername">Username</label> <br>
-            <input type="text" name="" id="loginUsername"> <br> <br>
+                    <div class="row">
+                        <label for="loginUsername"><b>Username : </b></label> <br>
+                        <div  class="col">
+                            <input class="form-control" type="text" name="" id="loginUsername"> <br>
+                        </div>
+                    </div>
 
-            <label for="loginPassword">Passowrd</label> <br>
-            <input type="text" name="" id="loginPassword"> <br> <br>
+                    <div class="row">
+                        <label for="loginPassword"> <b>Passowrd : </b></label> <br>
+                        <div  class="col">
+                            <input class="form-control" type="text" name="" id="loginPassword"> <br> <br>
+                        </div>
+                    </div>
 
-            <input type="submit" value="Login">
-            <button id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
-            <p id="errorMsg" style="display: none;">Please fill all required feild</p>
 
-        </form>
-
+                    <div class="row">
+                        <div  class="col">
+                            <input class="form-control mb-3 btn btn-success" type="submit" value="Login">
+                        </div>
+                        <div  class="col">
+                            <button class="form-control btn btn-primary" id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
+                        </div>
+                    </div>
+                    <p id="errorMsg" style="display: none;">Please fill all required feild</p>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
