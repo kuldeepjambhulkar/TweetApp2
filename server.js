@@ -12,7 +12,7 @@ var currentLoggedInUser = '';
 app.use(express.json());
 app.set('view engine', 'ejs');
 
-mongoose.connect('mongodb://localhost/TweetDB', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://PandurangShinde:Twenty20@cluster0.zzmyy.mongodb.net/TweetDB?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', (error) => { console.error(error.message) });
 db.once('open', () => { console.log("Connected!") }); 

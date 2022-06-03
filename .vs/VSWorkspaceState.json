@@ -5,6 +5,6 @@
     "\\views",
     "\\views\\pages"
   ],
-  "SelectedNode": "\\Models\\users.js",
+  "SelectedNode": "\\views\\pages\\tweets.ejs",
   "PreviewInSolutionExplorer": false
 }
