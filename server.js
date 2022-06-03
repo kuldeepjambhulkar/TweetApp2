@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Users = require('./Models/Users');
-const Tweets = require('./Models/Tweet');
+const Users = require('./Models/users');
+const Tweets = require('./Models/tweet');
 const port = process.env.PORT || 3000; 
 
 var bodyParser = require('body-parser');
