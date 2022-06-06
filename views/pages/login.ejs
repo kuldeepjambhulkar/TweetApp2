@@ -33,7 +33,12 @@
                     <div class="row">
                         <label for="loginPassword"> <b>Passowrd : </b></label> <br>
                         <div  class="col">
-                            <input class="form-control" type="password" name="" id="loginPassword"> <br> <br>
+                            <input class="form-control" type="password" name="" id="loginPassword">
+                            <input class="form-check-input" type="checkbox" id="show-password-btn">
+                            <label class="form-check-label" for="show-password-btn">
+                                Show Password
+                              </label>
+                              <br><br>
                         </div>
                     </div>
 
@@ -53,6 +58,17 @@
     </div>
 
     <script>
+        // Password visibility module
+        const showPasswordBtn = document.querySelector('#show-password-btn');
+        showPasswordBtn.addEventListener('click', () => {
+            var x = document.querySelector("#registerPassword");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        })
+
         const formElement = document.querySelector('#loginUserForm');
         formElement.addEventListener('submit', async (e)=>{
             e.preventDefault();
