@@ -3,11 +3,45 @@
 <head>
     <%- include('../partials/head') %>
     <title>Homepage</title>
+    <style>
+        .hero-heading{
+           font-size: 5rem;
+           margin-bottom: 4rem; 
+           font-weight: 900;
+        }
+        .sub-hero-heading{
+            font-size: 1.5rem;
+            font-weight: 400;
+            /* max-width: 500px; */
+            margin: auto;
+            /* margin-bottom: 4rem; */
+        }
+        body{
+            background: url('https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png');
+        }
+        @media screen and (max-width: 480px) {
+            .hero-heading{
+                font-size: 4rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>This Is HomePage</h2>
-    <button id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
-    <button id="loginBtn" title="Already have account? Login here!">Login</button>
+
+    <div class="container">
+        <div class="row text-center vh-100 d-flex align-items-center justify-content-center">
+            <div class="col">
+                <h1 class="font-weight-bold hero-heading">Become UltraSocial!</h1>
+                <p class="sub-hero-heading"> <b>Join UltraSocial Today!</b></p>
+                <p class="sub-hero-heading mb-5">Share your thoughts, ideas & work <br> with thousands of peoples on the internet! </p>
+                <div class="mt-5">
+                    <button id="signupBtn" class="btn btn-primary btn-lg" title="Don't have account? SignUp here!">SignUp</button>
+                    <button id="loginBtn" class="btn btn-outline-primary btn-lg" title="Already have account? Login here!">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const signupBtn = document.querySelector('#signupBtn');
         signupBtn.addEventListener('click', () => { window.location.href = '/signup' })

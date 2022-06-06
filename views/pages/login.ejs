@@ -4,12 +4,22 @@
     <%- include('../partials/head') %>
     <title>Login</title>
 </head>
+<style>
+    .hero-heading{
+        font-size: 5rem;
+        margin-bottom: 4rem; 
+        font-weight: 900;
+    }
+    body{
+        background: url('https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png');
+    }
+</style>
 <body>
     <!-- User sign up -->
-    <div class="container" style="max-width: 600px;background: #ff9f00;border-radius: 25px;">
+    <div class="container" style="max-width: 600px;">
         <div class="row mt-5">
             <div class="col">
-                <h2 class="mb-5 text-center">Login</h2>
+                <h1 class="mb-5 text-center hero-heading">Login</h1>
                 <form id="loginUserForm" style="margin-bottom: 2rem;">
         
 
@@ -23,17 +33,17 @@
                     <div class="row">
                         <label for="loginPassword"> <b>Passowrd : </b></label> <br>
                         <div  class="col">
-                            <input class="form-control" type="text" name="" id="loginPassword"> <br> <br>
+                            <input class="form-control" type="password" name="" id="loginPassword"> <br> <br>
                         </div>
                     </div>
 
 
                     <div class="row">
                         <div  class="col">
-                            <input class="form-control mb-3 btn btn-success" type="submit" value="Login">
+                            <input class="form-control mb-3 btn btn-primary" type="submit" value="Login">
                         </div>
                         <div  class="col">
-                            <button class="form-control btn btn-primary" id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
+                            <button class="form-control btn btn-outline-primary" id="signupBtn" title="Don't have account? SignUp here!">SignUp</button>
                         </div>
                     </div>
                     <p id="errorMsg" style="display: none;">Please fill all required feild</p>

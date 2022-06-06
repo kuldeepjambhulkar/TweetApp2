@@ -5,15 +5,23 @@
         <%- include('../partials/head') %>
         <title>SignUp</title>
     </head>
-    <title>SignUp</title>
+    <style>
+    .hero-heading{
+        font-size: 5rem;
+        margin-bottom: 4rem; 
+        font-weight: 900;
+    }
+    body{
+        background: url('https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png');
+    }
+    </style>
 </head>
 <body>
     <!-- User sign up -->
-    <div class="container" style="max-width: 600px;background: #ff9f00;border-radius: 25px;">
+    <div class="container" style="max-width: 600px;">
         <div class="row mt-5">
             <div class="col">
-                <h2  class="mb-5 text-center">Signup</h2>
-
+                <h1 class="mb-5 text-center hero-heading">SignUp</h1>
                 <form id="registerUserForm" style="margin-bottom: 2rem;">
                     <div class="row">
                             <b><label for="registerEmail">Email :</label></b>
@@ -25,7 +33,12 @@
                     <div class="row">
                             <b><label for="registerPassword">Passowrd : </label></b>
                         <div  class="col">
-                            <input class="form-control" type="text" name="" id="registerPassword"> <br>
+                            <input class="form-control" type="password" name="" id="registerPassword"> <br>
+                            <input class="form-check-input" type="checkbox" id="show-password-btn">
+                            <label class="form-check-label" for="show-password-btn">
+                                Show Password
+                              </label>
+                              <br><br>
                         </div>
                     </div>
 
@@ -59,10 +72,10 @@
 
                     <div class="row">
                         <div  class="col">
-                            <input class="form-control mb-3 btn btn-success" type="submit" value="Submit">
+                            <input class="form-control mb-3 btn btn-primary" type="submit" value="SignUp">
                         </div>
                         <div  class="col">
-                            <button class="form-control btn btn-primary" id="loginBtn" title="Already have account? Login here!">Login</button>
+                            <button class="form-control btn btn-outline-primary" id="loginBtn" title="Already have account? Login here!">Login</button>
                         </div>
                     </div>
             
@@ -78,6 +91,18 @@
 
     <script>
         const formElement = document.querySelector('#registerUserForm');
+
+        // Password visibility module
+        const showPasswordBtn = document.querySelector('#show-password-btn');
+        showPasswordBtn.addEventListener('click', () => {
+            var x = document.querySelector("#registerPassword");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        })
+
         formElement.addEventListener('submit', async (e)=>{
             e.preventDefault();
             const email = document.querySelector('#registerEmail').value;
