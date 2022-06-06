@@ -17,7 +17,7 @@
                 <!-- User greeting -->
                 <div class="row pb-5 pt-5 d-flex sticky-top bg-white">
                     <div class="col">
-                        <h4 id="header_greetings">Hello, <%=  tweetsAndUserObj.currentLoggedInUser[0].DisplayName %></h4>
+                        <h4 id="header_greetings">Hello, <%=  tweetsAndUserObj.currentLoggedInUser1[0].DisplayName %></h4>
                         <p id="header_greetings_time"></p>
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-items-end">
@@ -26,7 +26,7 @@
                             width: 4rem;
                             object-fit: cover;
                             width: 70px;
-                            height: 70px;" src=<%= 'data:image/png;base64,' + tweetsAndUserObj.currentLoggedInUser[0].Base64  %> alt="">
+                            height: 70px;" src=<%= 'data:image/png;base64,' + tweetsAndUserObj.currentLoggedInUser1[0].Base64  %> alt="">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger"  id="logout">Logout</button>
